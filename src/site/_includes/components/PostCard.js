@@ -28,7 +28,7 @@ const getSrcsetRange = require("../../_utils/get-srcset-range");
  * @param {Object} post An eleventy collection item with post data.
  * @return {string}
  */
-module.exports = ({post}) => {
+module.exports = ({post, featured = false}) => {
   const url = stripLanguage(post.url);
   const data = post.data;
 
@@ -121,12 +121,14 @@ module.exports = ({post}) => {
 
   return html`
     <a href="${url}" class="w-card">
-      <article class="w-post-card">
+      <article class="w-post-card ${featured ? "w-post-card--featured" : ""}">
         <div
           class="w-post-card__cover ${thumbnail &&
             `w-post-card__cover--with-image`}"
         >
           ${thumbnail && renderThumbnail(url, thumbnail, alt)}
+        </div>
+        <div class="w-post-card__blurb">
           <h2
             class="${thumbnail
               ? `w-post-card__headline--with-image`
@@ -134,12 +136,12 @@ module.exports = ({post}) => {
           >
             ${md(data.title)}
           </h2>
-        </div>
-        ${renderAuthorsAndDate(post)}
-        <div class="w-post-card__desc">
-          <p class="w-post-card__subhead">
-            ${md(data.subhead)}
-          </p>
+          ${renderAuthorsAndDate(post)}
+          <div class="w-post-card__desc">
+            <p class="w-post-card__subhead">
+              ${md(data.subhead)}
+            </p>
+          </div>
         </div>
       </article>
     </a>

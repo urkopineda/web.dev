@@ -17,10 +17,13 @@
 const livePosts = require("../_filters/live-posts");
 
 // Return the three most recent blog posts.
+// Because these posts appear on the homepage they need to have a hero or
+// thumbnail image, otherwise the visual layout will not work.
 module.exports = (collection) => {
   return collection
     .getFilteredByTag("post")
     .filter(livePosts)
+    .filter((item) => item.data.hero || item.data.thumbnail)
     .reverse()
     .slice(0, 3);
 };
