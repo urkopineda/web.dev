@@ -102,7 +102,7 @@ import dynamic from "next/dynamic";
 
 // ...
 
-const Puppy = dynamic(import("../components/Puppy"));
+const Puppy = dynamic(() => import("../components/Puppy"));
 ```
 
 <div class="glitch-embed-wrap" style="height: 480px; width: 100%;">
